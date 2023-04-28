@@ -93,5 +93,5 @@ def delete_car(car_id: int):
 
         raise HTTPException(status_code=status_code, detail=message)
 
-    response = f"Car with id #{car_id} deleted from database"
+    response = f"Car with id ${car_id} deleted from database."
     return {"response": response}

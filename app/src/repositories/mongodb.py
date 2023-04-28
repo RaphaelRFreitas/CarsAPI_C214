@@ -51,7 +51,7 @@ class MongoRepository(Repository):
             """
         response = self.collection.delete_one({'_id': car_id})
 
-        if response is None:
+        if response.deleted_count == 0:
             return False
 
         return True
