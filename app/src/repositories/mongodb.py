@@ -30,26 +30,26 @@ class MongoRepository(Repository):
         cars = self.collection.find()
         return json.loads(json_util.dumps(cars))
 
-    def read_car_by_id(self, car_id: str) -> Optional[Car]:
+    def read_car_by_id(self, car_id: int) -> Optional[Car]:
         """
             """
-        car = self.collection.find_one({'_id': ObjectId(car_id)})
+        car = self.collection.find_one({'_id': car_id})
 
         return json.loads(json_util.dumps(car))
 
-    def update_car(self, car_id: str, car: Car) -> bool:
+    def update_car(self, car_id: int, car: Car) -> bool:
         """
             """
-        res = self.collection.update_one({'_id': ObjectId(car_id)}, {"$set": car.dict()})
+        res = self.collection.update_one({'_id': car_id}, {"$set": car.dict()})
         if res.modified_count == 0:
             return False
 
         return True
 
-    def delete_car(self, car_id: str) -> bool:
+    def delete_car(self, car_id: int) -> bool:
         """
             """
-        response = self.collection.delete_one({'_id': ObjectId(car_id)})
+        response = self.collection.delete_one({'_id': car_id})
 
         if response is None:
             return False
@@ -64,3 +64,13 @@ class MongoRepository(Repository):
         except:
             return 0
         return idcar
+
+    def delete_all_cars(self) -> bool:
+        """
+            """
+        response = self.collection.delete_many({})
+
+        if response is None:
+            return False
+
+        return True

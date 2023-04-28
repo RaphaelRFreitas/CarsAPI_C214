@@ -5,11 +5,6 @@ from app.src.main import app
 
 APIclient = TestClient(app)
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["test_cars"]
-collection = db["test_cars"]
-collection.delete_many({})
-
 
 def test_index():
     response = APIclient.get("/")
@@ -21,10 +16,6 @@ def test_get_all_cars():
     response = APIclient.get("/cars")
     assert response.status_code == 200
     assert isinstance(response.json().get("cars"), list)
-
-
-def test_database_is_empty():
-    assert collection.count_documents({}) == 0
 
 
 def test_insert_car():
@@ -39,7 +30,6 @@ def test_insert_car():
     assert response.json().get("response") == "Car added into database"
 
 
-"""
 def test_get_car_by_id():
     # inserir um carro
     response_insert = APIclient.post(
@@ -51,12 +41,12 @@ def test_get_car_by_id():
             "color": "yellow"
         }
     )
-    car_id = response_insert.json().get("id")
+    car_id = response_insert.json().get("_id")
 
     # obter o carro pelo id
     response_get = APIclient.get(f"/cars/{car_id}")
     assert response_get.status_code == 200
-    assert response_get.json().get("car")["id"] == car_id
+    assert response_get.json().get("car")["_id"] == car_id
 
     # obter um carro inexistente
     response_get_inexistente = APIclient.get("/cars/999")
@@ -140,4 +130,3 @@ def test_delete_car():
     response_delete_inexistente = APIclient.delete("/cars/999")
     assert response_delete_inexistente.status_code == 404
     assert "Car not found for id 999" in response_delete_inexistente.json().get("detail")
-"""

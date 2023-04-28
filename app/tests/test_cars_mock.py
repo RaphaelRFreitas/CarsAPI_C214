@@ -5,7 +5,6 @@ from app.src.main import app
 from app.src.models import Car
 from app.src.repositories import repository
 
-'''
 def test_get_all_cars_mock():
     repository_mock = MagicMock()
     repository_mock.read_all_cars.return_value = [
@@ -85,4 +84,3 @@ def test_delete_car_mock():
     assert response.json() == {"response": "Car with id 1 deleted in database."}
 
     repository_mock.delete_car.assert_called_once_with("1")
-'''

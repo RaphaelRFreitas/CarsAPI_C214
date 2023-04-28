@@ -67,6 +67,21 @@ def update_car(car_id: int, car: Car = Body(...)):
     return {"response": response}
 
 
+@app.delete("/cars")
+def delete_all_cars():
+    """"""
+    cars_were_deleted = repository.delete_all_cars()
+
+    if not cars_were_deleted:
+        status_code = 404
+        message = f"No cars found in database"
+
+        raise HTTPException(status_code=status_code, detail=message)
+
+    response = f"All cars deleted from database"
+    return {"response": response}
+
+
 @app.delete("/cars/{car_id}")
 def delete_car(car_id: int):
     """"""
