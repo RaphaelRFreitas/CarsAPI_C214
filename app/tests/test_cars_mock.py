@@ -14,7 +14,7 @@ from fastapi.testclient import TestClient
 
 
 @patch("app.src.main.repository")
-class APITestCase(TestCase):
+class APITestCaseMock(TestCase):
     """
     Class to test the API endpoints.
     """

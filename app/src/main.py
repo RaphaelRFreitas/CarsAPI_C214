@@ -78,7 +78,7 @@ def delete_all_cars():
 
         raise HTTPException(status_code=status_code, detail=message)
 
-    response = f"All cars deleted from database"
+    response = f"All cars deleted from database."
     return {"response": response}
 
 
